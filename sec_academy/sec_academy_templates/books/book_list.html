@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  {% for obj in object_list %}
+    <div class="card-deck">
+      <a href="{{obj.get_absolute_url}}">
+      <div class="card">
+        {% if obj.cover %}
+          <img src="{{obj.cover.url}}" class="card-img-top" alt="{{obj.name}}">
+        {% endif %}
+        
+        <div class="card-body">
+          <h2 class="card-title">{{obj.name}}</h2>
+          <p class="card-text">{{obj.bio|truncatewords:15}}</p>
+          <p class="card-text"><small class="text-muted">{{obj.date}}</small></p>
+        </div>
+      </div>
+    </a>
+    </div>
+  {% endfor %}
+{% endblock content %}

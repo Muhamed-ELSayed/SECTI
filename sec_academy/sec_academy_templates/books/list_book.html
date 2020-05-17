@@ -1,0 +1,21 @@
+<div class="card-deck">
+
+  {% for obj in context %}
+    <a href="{{obj.get_absolute_url}}">
+      <div class="card">
+        {% if obj.cover %}
+          <img src="{{obj.cover.url}}" class="card-img-top" alt="{{obj.name}}">
+        {% endif %}
+        
+        <div class="card-body">
+          <h2 class="card-title">{{obj.name}}</h2>
+          <p class="card-text">{{obj.bio|truncatewords:15}}</p>
+          <p class="card-text"><small class="text-muted">{{obj.date}}</small></p>
+        </div>
+      </div>
+    </a>
+  {% endfor %}
+  
+  
+  
+</div>

@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load books %}
+
+{% block content %}
+  <header>
+    <!--Slogan-->
+    <div class="slogan-header">
+      <h1>Learn on your schedule</h1>
+      <span>Study any topic, anytime. Explore thousands of courses starting at $11.99 each.</span>
+    </div>
+
+    <!-- Goals -->
+    <div class="goals-css">
+      <div class="goal">
+        <h1>100,000 online courses</h1>
+        <span>Explore a variety of fresh topics</span>
+      </div>
+
+      <div class="goal">
+        <h1>Expert instruction</h1>
+        <span>Find the right instructor for you</span>
+      </div>
+
+      <div class="goal">
+        <h1>Lifetime access</h1>
+        <span>Learn on your schedule</span>
+      </div>
+    </div>
+  </header>
+
+  <section class="cat-homepage">
+    <div class="series-cat">
+      {% seriesbooks %}
+    </div>
+
+    <div class="books">
+      {% book %}
+    </div>
+  </section>
+
+{% endblock content %}

@@ -1,0 +1,58 @@
+{% load static %}
+{% load books %}
+<nav class="nav-css">
+  <a href="#" class="menu-bar js-menu"><i class="fas fa-bars"></i></a>
+
+  <div class="logo-svg">
+    <a href="{% url 'core:home-page' %}"><img src="{% static 'images/logo.svg' %}" alt=""></a>
+  </div>
+
+
+  <div class="btn-categories">
+    <div class="category">
+      
+      <a class=''>
+        <span><img src="{% static 'icons/categories.svg' %}" alt=""></span>
+        Categories
+      </a>
+
+      <div class="cat-drop-menu">
+        {% categories %}
+      </div>
+    </div>
+
+    <div class="search-bar">
+      <i class="fas fa-search icon-small"></i>
+      <input class="form-control search" type="text" placeholder="Search" aria-label="Search">
+    </div>
+    
+  </div>
+  
+  <div class="right-btn">
+    
+    {% comment %} <a href="{% url 'card:home-page' %}" class="btn-icon">
+      <img src="{% static 'icons/shop.svg' %}" alt="">
+      <small style='color:black'>{{request.session.card_item}}</small>
+    </a> {% endcomment %}
+    {% if request.user.is_authenticated %}
+      <a href="{% url 'accounts:logout' %}"><button class="main-button-border">Logout</button></a>
+    {% else %}
+      <a href="{% url 'accounts:login' %}"><button class="main-button-border">Login</button></a>
+      <a href="{% url 'accounts:signup' %}" ><button class="main-button">Sign Up</button></a>
+    {% endif %}
+  </div>
+
+
+  <div class="nav-mobile" id="js-nav-mobile">
+    <div class="login-signup">
+      <button class="btn" >Login</button>
+      <button class="btn">Sign Up</button>
+    </div>
+    
+    <div class="cat-mob">
+      {% categories %}
+    </div>
+  </div>
+
+  
+</nav>

@@ -1,0 +1,160 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}{{object.name}}{% endblock title %}
+{% block content %}
+
+  <div class="container-fluid details-container">
+
+    <!-- Main path to course-->
+  <div class="specific-book">
+    <span> <a class='btn-text' href="#">{{object.series.book.name}}</a> </span>
+    <span>></span>
+    <span><a class='btn-text' href="#">{{object.series.name}}</a></span>
+    <span>></span>
+    <span>{{object.name}}</span>
+  </div>
+
+  <!-- Main headlines for cources-->
+  <section class='header-details-book'>
+    <div class="container">
+
+      <div class="row">
+
+      <div class="col-8 name-details-book">
+        <h1>{{object.name}}</h1>
+      </div>
+
+      <div class="col-8 bio-details-book">
+        <h3>{{object.bio | safe}}</h3>
+      </div>
+
+      <!--<div class="col-8 created-by">
+        <span>The available seats 
+        <strong style="font-size:1rem; background-color:orange; padding:5px">
+          {% for obj in loc %}{{obj.seats}}{% endfor %}
+        </strong>
+        </span> 
+      </div>-->
+      
+    </div>
+
+    <div class="row">
+    
+      <div class="col-8 created-by">
+        <select class="custom-select" id="inputGroupSelect01">
+          <option selected>Choose...</option>
+          {% for obj in loc %}
+            <option value="1">{{obj.location|capfirst}}  - {{obj.date}} - The available seats: {{obj.seats}}</option>
+          {% endfor %}
+        </select>
+      </div>
+    
+    </div>
+
+    </div>
+  </section>
+
+  <!-- What we will learn -->
+  <section class="what-we-learn">
+    <div class="container">
+      <div class="row">
+        
+        <div class="col-12">
+          <h1>What you'll learn</h1>  
+        </div>
+
+        <div class="col-12 learn-text-trunct js--learn-text-trunct-learn">
+          {{object.learn|safe|linenumbers|linebreaksbr|truncatewords:20}}
+        </div>
+
+        <div class="col-12 learn-text js--learn-text-learn">
+          {{object.learn|safe|linenumbers|linebreaksbr}}
+        </div>
+
+        <div class="col-6">
+          <button class='main-button js--collapse-learn'>Read more</button>
+        </div>      
+
+      </div>
+    
+    </div>
+  </section>
+  
+  <!-- Requirements sections -->
+  <section class='requirements-details'>
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <h1>Requirements</h1>
+        </div>
+        <div class="col-12 text-require">
+          {{object.require|linenumbers|linebreaks}}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Descriptions Details -->
+  <section class="desc-details">
+    <div class="container">
+      <div class="row">
+        
+        <div class="col-12">
+          <h1>Description</h1>  
+        </div>
+        
+        <div class="col-12 learn-text-trunct js--learn-text-trunct-dec">
+          {{object.description|safe|linenumbers|linebreaksbr|truncatewords:20}}
+        </div>
+
+        <div class="col-12 learn-text js--learn-text-dec">
+          {{object.description|safe|linenumbers|linebreaksbr}}
+        </div>
+
+        <div class="col-6">
+          <button class='main-button js--collapse-dec'>Read more</button>
+        </div>      
+
+      </div>
+    
+    </div>
+  </section>
+
+
+    <div class="card add-to-card">
+    <video width="100%" height="100%" controls autoplay>
+      <source src="{{object.content.url}}" type="video/mp4"> </source>
+    </video>
+      <div class="card-body">
+        <h5 class="card-title">{{object.price}} SAR</h5>
+        <!--
+          Here we will check if course user is selected or no
+        -->
+        
+      
+        {% include 'books/card_update.html' with book=object card=card %}
+        
+        <div class="col-12 text-center"><button class='main-button-border'>Buy now</button></div>
+        
+        
+        <ul class='structure-course'>
+          <li>15 hours on-demand video</li>
+          <li>33 articles</li>
+          <li>60 downloadable resources</li>
+          <li>Full lifetime access</li>
+          <li>Access on mobile and TV</li>
+          <li>Certificate of Completion</li>
+        </ul>
+
+        <div class="col-12  text-center">
+          <a href="#" class='btn-text'>Share</a>
+        </div>
+      </div>
+    </div>
+
+
+  
+  </div>
+
+  
+{% endblock content %}

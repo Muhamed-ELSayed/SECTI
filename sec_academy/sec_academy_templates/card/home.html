@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Card{% endblock title %}
+
+{% block content %}
+  {% if card.books.exists %}
+
+    <div class="container">
+      <table class="table">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Course</th>
+          <th scope="col">Price</th>
+          <th scope="col">Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for book in card.books.all %}
+          <tr>
+          <th scope="row">{{forloop.counter}}</th>
+          <td>
+            <a href="{{book.get_absolute_url}}" style='color:black'>{{book.name}}</a>
+            {% include 'books/card_update.html' with book=book card=card card_obj=True%}
+          </td>
+          <td>{{book.price}}</td>
+          <td>{{card.date|date:"D d M Y"}}</td>
+        </tr>
+        {% endfor %}
+
+        <tr>
+          <th scope="row" colspan='3'>Subtotal</th>
+          <td style='font-weight:bold; color:orange'>{{card.subtotal}}</td>
+        </tr>
+
+        <tr>
+          <th scope="row" colspan='3'>Total</th>
+          <td style='font-weight:bold; color:orange'>{{card.total}}</td>
+        </tr>
+
+        <tr>
+          
+          <th scope="row" colspan='5'><a class="btn btn-lg btn-success" href={% if request.user.is_authenticated %}
+            "{% url 'card:check-orders' %}" {% else %} "{% url 'accounts:login' %}" {% endif %}>Check Order</a></th>
+        </tr>
+        
+      </tbody>
+    </table>
+    </div>
+
+  {% else %}
+    
+    <div class="container">
+        <div class="jumbotron">
+          <h1 class="display-4">Your Card is Empty</h1>
+          <p class="lead">Your cart is empty. Keep shopping to find a course!</p>
+          <hr class="my-4">
+          <p>Keep shopping</p>
+          <a class="btn btn-primary btn-lg" href="{% url 'core:home-page' %}" role="button">Keep shopping</a>
+        </div>
+    </div>
+  
+  {% endif %}
+{% endblock content %}

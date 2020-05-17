@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="container">
+    <h1 style="color:black; font-weight:bold">CheckOut</h1>
+    <p>Order ID:  {{object.order_id}}</p>
+    <p>
+      {% for obj in object.card.books.all %}
+      <p>
+        <a style="color:black;" href="{{obj.get_absolute_url}}">{{obj.name}}</a>
+        : Seats is {{obj.seats}}
+      </p>
+      {% endfor %}
+    </p>
+    <p>Order Status:  {{object.status}}</p>
+    <p>Order Totla:  {{object.card.total}} SAR</p>
+  </div>
+{% endblock content %}

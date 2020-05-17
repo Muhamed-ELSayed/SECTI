@@ -1,0 +1,3 @@
+{% for obj in context %}
+  <a class="btn-text js--series--links" href="{{obj.get_absolute_url}}">{{obj.book.name}}</a>
+{% endfor %}
