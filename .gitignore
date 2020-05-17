@@ -1,0 +1,12 @@
+notes/
+static_cdn_academy/
+sec_academy/db.sqlite3
+sec_academy/sec_static/
+sec_academy/accounts/__pycache__/
+sec_academy/books/__pycache__/
+sec_academy/card/__pycache__/
+sec_academy/core/__pycache__/
+sec_academy/orders/__pycache__/
+sec_academy/puplic_profile/__pycache__/
+sec_academy/search/__pycache__/
+sec_academy/sec_academy/__pycache__/
