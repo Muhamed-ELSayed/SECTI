@@ -7,9 +7,7 @@ from django.urls import reverse
 from datetime import datetime
 from django.utils.html import mark_safe
 from accounts.models import User
-# from puplic_profile.models import ProfileUser
-# from django.conf import settings
-
+from sec_academy.utilities.validate_name_dir import validate_name_dir
 from .utilise.utils_nav import unique_slug_generator_pages
 # Create your models here.
 # User  = settings.AUTH_USER_MODEL
@@ -26,7 +24,8 @@ def upload_to(instance, filename):
   new_name = random.randint(1, 123456789)
   name, ext = change_name(filename)
   final_name = f'{new_name}{ext}'
-  return f"books/icons/{instance.name}/{final_name}"
+  dir_name = validate_name_dir(instance.name)
+  return f"books/icons/{dir_name}/{final_name}"
 
 class BookCategories(models.Model):
   name      = models.CharField(max_length=150)
@@ -89,15 +88,18 @@ def upload_to_content_book(instance, filename):
   new_name = random.randint(1, 5364789123)
   name, ext   = change_name(filename)
   finalname   = f'{new_name}{ext}'
+  dir_name = validate_name_dir(instance.name)
 
-  return f"books/content/{instance.series.book.name}/{instance.series.name}/{instance.name}/{instance.date.month}-{instance.date.year}/{finalname}"
+  return f"books/content/{instance.series.book.name}/{instance.series.name}/{dir_name}/{instance.date.month}-{instance.date.year}/{finalname}"
+
 
 def upload_cover_book(instance, filename):
   new_name = random.randint(1, 5364789123)
   name, ext   = change_name(filename)
   finalname   = f'{new_name}{ext}'
+  dir_name = validate_name_dir(instance.name)
 
-  return f"books/cover/{instance.series.book.name}/{instance.series.name}/{instance.name}/{instance.date.month}-{instance.date.year}/{finalname}"
+  return f"books/cover/{instance.series.book.name}/{instance.series.name}/{dir_name}/{instance.date.month}-{instance.date.year}/{finalname}"
 
 class BookQuerySet(models.query.QuerySet):
 
