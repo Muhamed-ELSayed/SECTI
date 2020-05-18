@@ -5,14 +5,20 @@ from books.models import Book
 # Create your views here.
 
 class SearchBooksList(ListView):
-  template_name = "books/seriese_books.html"
+  template_name = "search/search_books.html"
+
+  def get_context_data(self, *args, **kwargs):
+    context = super(SearchBooksList, self).get_context_data(*args, **kwargs)
+    query  = self.request.GET.get("q", None)
+    context['query'] = query
+    return context
+    
 
   def get_queryset(self, *args, **kwargs):
-    query = self.request.GET.get("q")
+    query = self.request.GET.get("q", None)
     if query is not None:
-      return Book.objects.filter(name__icontains=query)
-    return Book.objects.none()
-    
+      return Book.objects.search(query) 
+    return Book.objects.all()
   
     
   

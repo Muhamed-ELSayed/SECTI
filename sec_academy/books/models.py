@@ -2,6 +2,7 @@ import os
 import random
 from django.db import models
 from django.db.models.signals import pre_save
+from django.db.models import Q
 from django.urls import reverse
 from datetime import datetime
 from django.utils.html import mark_safe
@@ -98,8 +99,27 @@ def upload_cover_book(instance, filename):
 
   return f"books/cover/{instance.series.book.name}/{instance.series.name}/{instance.name}/{instance.date.month}-{instance.date.year}/{finalname}"
 
+class BookQuerySet(models.query.QuerySet):
 
+  def search(self, query):
+    lookup = (Q(name__icontains=query)|
+              Q(bio__icontains=query)|
+              Q(learn__icontains=query)|
+              Q(require__icontains=query)|
+              Q(price__icontains=query)|
+              Q(date__icontains=query)
+             )
+    return self.filter(lookup).distinct()
+    
 
+class BookManager(models.Manager):
+
+  def get_queryset(self):
+    return BookQuerySet(self.model, using=self._db)
+
+  def search(self, query):
+    return self.get_queryset().search(query)
+    
 class Book(models.Model):
   # I created relationship between book and user to know who will create the book?
   user          = models.ForeignKey(User, on_delete=models.CASCADE, limit_choices_to={"staff":True}) 
@@ -114,6 +134,7 @@ class Book(models.Model):
   price         = models.DecimalField(max_digits=10, decimal_places=2, default= 1000.00)
   slug          = models.SlugField(unique=True, null=True, blank=True)
   date          = models.DateTimeField(default = datetime.now)
+  objects       = BookManager()
 
   def __str__(self):
       return self.name
