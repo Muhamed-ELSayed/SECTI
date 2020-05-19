@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView
-from .models import Book
-# from card.models import CardModel
+from .models import Book, Location
+from card.models import CardModel
 # Create your views here.
 
 # create a list class for series book
@@ -26,11 +26,12 @@ class BookDeatils(DetailView):
     3- we send a spacefic course for card page
   '''
   template_name = 'books/book_detail.html'
-  queryset      = Book.objects.all()
 
   def get_context_data(self, *args,**kwargs):
     context = super(BookDeatils, self).get_context_data(*args, **kwargs)
     context['card'] = CardModel.objects.get_card_or_create(self.request)
+    book_name = context["object"]
+    context["loc"] = Location.objects.filter(book__name=book_name)
     return context
         
   def get_object(self, *args, **kwargs):

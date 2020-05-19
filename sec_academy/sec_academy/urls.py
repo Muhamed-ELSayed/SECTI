@@ -10,7 +10,7 @@ urlpatterns = [
     path('profile/', include('puplic_profile.urls', namespace='profile')),
     path('books/', include('books.urls', namespace='books')),
     path('search/', include('search.urls', namespace='search')),
-    # path('card/', include('card.urls', namespace='card')),
+    path('card/', include('card.urls', namespace='card')),
 ]
 
 

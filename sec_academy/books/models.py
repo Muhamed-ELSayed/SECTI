@@ -168,3 +168,20 @@ def book_pre_save_receiver(instance, sender, *args, **kwargs):
 pre_save.connect(book_pre_save_receiver, sender=Book)
   
 
+
+#####################################Locations##################################### 
+LOCATIONS_CHOICES = (
+  ("ryiadh", "Ryiadh"),
+  ("dammam", "Dammam"),
+  ("abha", "Abha"),
+  ("jeddah", "Jeddah"),
+  ("online", "Online"),
+)
+class Location(models.Model):
+  book          = models.ForeignKey(Book, on_delete=models.CASCADE)
+  seats         = models.PositiveIntegerField(default=0)
+  location      = models.CharField(max_length= 30, default="dammam", choices=LOCATIONS_CHOICES)
+  date          = models.DateTimeField(default = datetime.now)
+
+  def __str__(self):
+      return self.location

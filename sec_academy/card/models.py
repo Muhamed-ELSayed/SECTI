@@ -16,7 +16,7 @@ class CardQuerySet(models.query.QuerySet):
     conditions
       1- if card id is exists:
           return with card id
-          check if the user authenticated  and user is none in card to save user in model card
+          check if the user authenticated and user is none in card to save user in model card
       
       2- if card id is not found:
           we will creating a anonymous user and creating a card id is associated with user id
@@ -88,8 +88,8 @@ def card_update_seats():
 def card_signal_books(instance, action, sender, *args, **kwargs):  
   books = instance.books.all()
   
-  total_books = 0
-  subtotal    = 0
+  total_books     = 0
+  subtotal        = 0
   seats_num       = 0
   for book in books:
     subtotal      += book.price

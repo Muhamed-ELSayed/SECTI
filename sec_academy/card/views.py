@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import CardModel
 from books.models import Book
-from orders.models import OrdersModel
+# from orders.models import OrdersModel
 # Create your views here.
 def create_user(user=None):
   return CardModel.objects.create(user=user)
@@ -35,11 +35,11 @@ def card_update(request):
   return redirect('card:home-page')
 
 
-def checkorders(request):
-  template_name = "card/checkout_orders.html"
-  card_obj = CardModel.objects.get_card_or_create(request)
-  order_obj, new_order_obj = OrdersModel.objects.get_or_create(card=card_obj)
+# def checkorders(request):
+#   template_name = "card/checkout_orders.html"
+#   card_obj = CardModel.objects.get_card_or_create(request)
+#   order_obj, new_order_obj = OrdersModel.objects.get_or_create(card=card_obj)
 
-  print(new_order_obj)
-  context={"object":order_obj}
-  return render(request, template_name, context)
+#   print(new_order_obj)
+#   context={"object":order_obj}
+#   return render(request, template_name, context)

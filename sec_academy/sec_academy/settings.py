@@ -51,7 +51,7 @@ INSTALLED_APPS = [
     'puplic_profile',
     'books',
     'search',
-    # 'card',
+    'card',
     # 'orders',
 ]
 
