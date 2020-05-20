@@ -52,7 +52,7 @@ INSTALLED_APPS = [
     'books',
     'search',
     'card',
-    # 'orders',
+    'orders',
 ]
 
 # Crispy form via bootstrap
