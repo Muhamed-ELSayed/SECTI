@@ -32,6 +32,12 @@ class BookDeatils(DetailView):
     context['card'] = CardModel.objects.get_card_or_create(self.request)
     book_name = context["object"]
     context["loc"] = Location.objects.filter(book__name=book_name)
+    context["bookSeats"] = 0
+
+    # Sum seats in all location
+    for obj in context["loc"]:
+      context["bookSeats"] += obj.seats
+    
     return context
         
   def get_object(self, *args, **kwargs):

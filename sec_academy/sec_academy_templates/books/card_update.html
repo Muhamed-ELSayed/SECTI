@@ -2,8 +2,10 @@
   {% csrf_token %}
   <!-- we will create input hidden to grab id for book details page-->
   <input type="hidden" name="book_id" value='{{object.id}}'>
+
   <!-- we will create input hidden to grab id for card home page-->
   <input type="hidden" name="book_id" value='{{book.id}}'>
+  
   {% if card_obj %}
     <div class="col-12 text-center">
       <button class='main-button' type='submit'>Remove from card</button>
