@@ -29,7 +29,7 @@
   <div class="right-btn">
     <a href="{% url 'card:home-page' %}" class="btn-icon">
       <img src="{% static 'icons/shop.svg' %}" alt="">
-      <small style='color:black'>{{request.session.card_item}}</small>
+      <small style='color:black'><span class="navbar-count-ajax">{{request.session.card_item}}</span></small>
     </a> 
 
     {% if request.user.is_authenticated %}

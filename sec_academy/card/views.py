@@ -1,3 +1,4 @@
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from .models import CardModel
 from books.models import Book
@@ -24,14 +25,26 @@ def card_update(request):
 
     if book_obj in card_obj.books.all():
       card_obj.books.remove(book_obj)
+      added = False
     else:
+      added = True
       card_obj.books.add(book_obj)
     card_count = card_obj.books.count()
     request.session['card_item'] = card_count
+
   else:
     print('The Book Id Not Found')
     return redirect('card:home-page')
   
+  if request.is_ajax():
+    data={
+      "add": added,
+      "remove": not added,
+      "cardCount": card_count
+    }
+    return JsonResponse(data)
+    
+    
   return redirect('card:home-page')
 
 
