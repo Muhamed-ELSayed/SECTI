@@ -83,8 +83,7 @@ class CardModel(models.Model):
   1- we will create a functioning receiver with card model
   2- we will create a m2m_changed because of the relationship between card and books is many to many
 '''
-def card_update_seats():
-  pass
+
 def card_signal_books(instance, action, sender, *args, **kwargs):  
   books = instance.books.all()
   

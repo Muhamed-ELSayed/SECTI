@@ -7,7 +7,7 @@
   {% if card.books.exists %}
 
     <div class="container">
-      <table class="table">
+      <table class="table table-content-ajax">
       <thead class="thead-dark">
         <tr>
           <th scope="col">#</th>
@@ -16,38 +16,45 @@
           <th scope="col">Date</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody class="table-body-ajax">
         {% for book in card.books.all %}
-          <tr>
+          <tr class="table-books-ajax">
           <th scope="row">{{forloop.counter}}</th>
           <td>
             <a href="{{book.get_absolute_url}}" style='color:black'>{{book.name}}</a>
-            {% include 'books/card_update.html' with book=book card=card card_obj=True%}
+            {% include 'card/remove_books_ajax.html' with book_id=book.id  %}
           </td>
           <td>{{book.price}}</td>
-          <td>{{card.date|date:"D d M Y"}}</td>
+          <td>{{book.date|date:"d/m/Y"}}</td>
         </tr>
         {% endfor %}
 
         <tr>
-          <th scope="row" colspan='3'>Subtotal</th>
-          <td style='font-weight:bold; color:orange'>{{card.subtotal}}</td>
+          <th scope="row" colspan='3'>Total</th>
+          <td style='font-weight:bold; color:orange'> <span class="subtotal-ajax">{{card.total}} SAR</span> </td>
         </tr>
+
 
         <tr>
-          <th scope="row" colspan='3'>Total</th>
-          <td style='font-weight:bold; color:orange'>{{card.total}}</td>
+          <th scope="row" colspan='3'>Subtotal</th>
+          <td style='font-weight:bold; color:orange'> <span class="total-ajax">{{card.subtotal}} SAR</span> </td>
         </tr>
 
+        
         <tr>
           
-          <th scope="row" colspan='5'><a class="btn btn-lg btn-success" href={% if request.user.is_authenticated %}
+          <th scope="row" colspan='5'><a class="btn btn-success" href={% if request.user.is_authenticated %}
             "{% url 'card:check-orders' %}" {% else %} "{% url 'accounts:login' %}" {% endif %}>Check Order</a></th>
         </tr>
         
       </tbody>
     </table>
     </div>
+
+  <div class="item-remove-book" style="display:none">
+    
+    {% include 'card/remove_books_ajax.html'%}
+  </div>
 
   {% else %}
     

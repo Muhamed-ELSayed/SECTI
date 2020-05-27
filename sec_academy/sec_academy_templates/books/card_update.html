@@ -1,23 +1,16 @@
-<form class="form-card-ajax" action="{% url 'card:card-update' %}" method="POST" class='form'>
+<form class="form-card-ajax" action="{% url 'card:card-update' %}" action-api="{% url 'card:card-update' %}" method="POST" class='form'>
   {% csrf_token %}
-  <!-- we will create input hidden to grab id for book details page-->
-  <input type="hidden" name="book_id" value='{{object.id}}'>
+
 
   <!-- we will create input hidden to grab id for card home page-->
   <input type="hidden" name="book_id" value='{{book.id}}'>
   
-  {% if card_obj %}
-    <div class="col-12 text-center">
-      <button class='main-button' type='submit'>Remove from card</button>
-    </div>
-  {% else %}
-    <span class="span-form-ajax">
+  <span class="span-form-ajax">
       {% if object in card.books.all %}
         <div class="col-12 text-center"><button class='main-button' type='submit'>Remove from card</button></div>
       {% else %}
         <div class="col-12 text-center"><button class='main-button submit-ajax' type='submit'>Add to card</button></div>
       {% endif %}
-    </span>
-  {% endif %}
+  </span>
   
 </form>

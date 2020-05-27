@@ -4,8 +4,23 @@ from .models import CardModel
 from books.models import Book
 from orders.models import OrdersModel
 # Create your views here.
-def create_user(user=None):
-  return CardModel.objects.create(user=user)
+# def create_user(user=None):
+#   return CardModel.objects.create(user=user)
+def formAjax(request):
+  card_obj = CardModel.objects.get_card_or_create(request)
+  books=  [{"id":obj.id,
+            "name":obj.name, 
+            "price":obj.price, 
+            "url":obj.get_absolute_url(), 
+            "date":obj.date.strftime('%d/%m/%Y'), 
+            } 
+            for obj in card_obj.books.all()]
+  data = {
+    "books":books,
+    "total": card_obj.total,
+    "subtotal": card_obj.subtotal,
+  }
+  return JsonResponse(data)
   
 def homePage(request):
   card_obj = CardModel.objects.get_card_or_create(request)
